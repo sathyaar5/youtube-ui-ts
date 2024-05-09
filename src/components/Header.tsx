@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import {
   Apps as AppsIcon,
@@ -30,19 +30,14 @@ import SidebarRow from "./SidebarRow";
 import SubscriptionRow from "./SubscriptionRow";
 
 const Header: React.FC = () => {
+  const [isMiniSidebarActive, setIsMiniSidebarActive] = useState(false);
+
   const toggleSidebar = () => {
-    const sidebar = document.querySelector(".sidebar");
-    const MiniSidebar = document.querySelector(".mini_sidebar");
-    if (sidebar) {
-      sidebar.classList.toggle("active");
-    }
-    if (MiniSidebar) {
-      MiniSidebar.classList.toggle("active");
-    }
+    setIsMiniSidebarActive(!isMiniSidebarActive);
   };
 
   return (
-    <Box className="parent_header">
+    <Box className={`parent_header ${""}`}>
       <Box className="header">
         <Box className="header_left" onClick={toggleSidebar}>
           <MenuIcon />
@@ -62,7 +57,7 @@ const Header: React.FC = () => {
           <AppsIcon className="header_icons" />
         </Box>
       </Box>
-      <Box className="sidebar">
+      <Box className={`sidebar ${""}`}>
         <SidebarRow icon={HomeIcon} title="Home" />
         <SidebarRow icon={ExploreIcon} title="Explore" />
         <SidebarRow icon={SubscriptionsIcon} title="Subscription" />
@@ -112,7 +107,7 @@ const Header: React.FC = () => {
         <SidebarRow icon={FeedbackIcon} title="Send feedback" />
         <Divider />
       </Box>
-      <Box className="mini_sidebar">
+      <Box className={`mini_sidebar ${isMiniSidebarActive ? "active" : ""}`}>
         <Box className="miniDev">
           <HomeIcon />
           <Typography variant="subtitle2">Home</Typography>
